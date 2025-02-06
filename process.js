@@ -45,7 +45,7 @@ async function fetchActMeta(actid){
             institution: document.querySelectorAll('.main_doc_info_left td:nth-child(3)')[2]?.textContent.trim(),
             date: document.querySelectorAll('.main_doc_info_right td:nth-child(3)')[2]?.textContent.trim(),
             gz_nr: document.querySelectorAll('.main_doc_info_right td:nth-child(3)')[3]?.textContent.trim(),
-            meta_html: document.querySelector('.content_main').innerHTML
+            meta_html: document.querySelector('.content_main')?.innerHTML
         }
     })
 }
@@ -58,7 +58,7 @@ async function fetchActText(actid){
         return {
             title: document.querySelector('.browse_acts .other_titles')?.textContent.trim(),
             text: document.querySelector('.content_main .main_doc_txt')?.textContent.trim(),
-            html: document.querySelector('.content_main').innerHTML
+            html: document.querySelector('.content_main')?.innerHTML
         }
     })
 }
@@ -73,7 +73,7 @@ const worker = new Worker(
 
         const result = await Promise.all([ fetchActMeta(actid),fetchActText(actid)]).then(async ([meta, text]) => {
         
-            if(!meta.title || !text.title) {
+            if(!meta.title && !text.title) {
                 return null;
             }
         
