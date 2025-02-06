@@ -1,0 +1,24 @@
+{
+  "name": "gzk",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "initQueue.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@bull-board/api": "^6.7.4",
+    "@bull-board/express": "^6.7.4",
+    "axios": "^1.7.9",
+    "bullmq": "^5.40.0",
+    "cheerio": "^1.0.0",
+    "express": "^4.21.2",
+    "jsdom": "^26.0.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  }
+}
