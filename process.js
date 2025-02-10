@@ -16,6 +16,7 @@ const db = await open({
 
 await db.exec(`CREATE TABLE IF NOT EXISTS pages (
     actid INTEGER PRIMARY KEY,
+    isActive INTEGER,
     title TEXT,
     haspdf INTEGER,
     hastxt INTEGER,
@@ -38,8 +39,6 @@ async function fetchActMeta(actid){
     
         return{
             title: document.querySelector('.act_detail_title_a a')?.textContent.trim(),
-            haspdf: !!document.querySelector('.act_detail_download [src$="pdf32.png"]'),
-            hastxt: !!document.querySelector('.act_detail_download [src$="txt32.png"]'),
             type: document.querySelector('.main_doc_info_left td:nth-child(3)')?.textContent.trim(),
             act_nr: document.querySelectorAll('.main_doc_info_left td:nth-child(3)')[1]?.textContent.trim(),
             institution: document.querySelectorAll('.main_doc_info_left td:nth-child(3)')[2]?.textContent.trim(),
@@ -57,6 +56,8 @@ async function fetchActText(actid){
 
         return {
             title: document.querySelector('.browse_acts .other_titles')?.textContent.trim(),
+            haspdf: !!document.querySelector('.main_doc_download [src$="pdf32.png"]'),
+            hastxt: !!document.querySelector('.main_doc_download [src$="txt32.png"]'),
             text: document.querySelector('.content_main .main_doc_txt')?.textContent.trim(),
             html: document.querySelector('.content_main')?.innerHTML
         }
@@ -85,8 +86,8 @@ const worker = new Worker(
             )`, {
                 $actid: actid,
                 $title: meta.title,
-                $haspdf: meta.haspdf,
-                $hastxt: meta.hastxt,
+                $haspdf: text.haspdf,
+                $hastxt: text.hastxt,
                 $type: meta.type,
                 $act_nr: meta.act_nr,
                 $institution: meta.institution,
