@@ -6,13 +6,13 @@ const connection = { host: '127.0.0.1', port: 6379 };
 
 const pageQueue = new Queue('pageQueue', { connection });
 const db = await open({
-    filename: 'gzk.db',
+    filename: 'gzk2.db',
     driver: sqlite3.Database
 })
 
 
-const rows = await db.all(`SELECT actid FROM pages WHERE type NOT IN ('Njoftime për trashegimitarë' , 'Notification for inheritance' )`)
-
+//const rows = await db.all(`SELECT actid FROM pages WHERE type NOT IN ('Njoftime për trashegimitarë' , 'Notification for inheritance' )`)
+const rows = await db.all(`SELECT actid FROM pages WHERE type NOT IN ('Njoftime për trashegimitarë' , 'Notification for inheritance' ) AND haspdf = 1 AND hastxt = 0 AND isActive = 1 `)
 
 for (const row of rows) {
     pageQueue.add('default', { 

@@ -28,7 +28,8 @@ await db.exec(`CREATE TABLE IF NOT EXISTS pages (
     meta_html TEXT,
     text_title TEXT,
     text TEXT,
-    text_html TEXT
+    text_html TEXT,
+    isActive INTEGER DEFAULT 1
 )`)
 
 async function fetchActMeta(actid){
